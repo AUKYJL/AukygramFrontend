@@ -1,0 +1,21 @@
+.sender {
+  display: flex;
+  gap: 5px;
+}
+
+.name {
+  font-weight: 600;
+  text-align: left;
+  order: 2;
+  &.own {
+    text-align: right;
+    order: 1;
+  }
+}
+.img {
+  grid-row: span 2;
+  order: 1;
+  &.own {
+    order: 2;
+  }
+}
