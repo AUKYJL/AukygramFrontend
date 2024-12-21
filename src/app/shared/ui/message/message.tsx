@@ -23,7 +23,7 @@ export const Message: React.FC<Props> = ({
     const minutes = date.getMinutes();
     return `${hours}:${minutes}`;
   };
-  const isOwn = message.sendBy.id === 1;
+  const isOwn = message.sendBy.id === 26;
   return (
     <div
       className={clsx(className, styles.messageWrapper, isOwn && styles.own)}

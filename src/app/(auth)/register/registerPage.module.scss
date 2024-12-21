@@ -1,0 +1,12 @@
+.form {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+.formError {
+  margin-top: 2px;
+  color: red;
+  display: block;
+  text-align: left;
+  max-width: 300px;
+}

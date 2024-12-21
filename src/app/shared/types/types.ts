@@ -1,3 +1,23 @@
+export interface ILoginDTO {
+  tagName?: string;
+  phone?: string;
+  email?: string;
+  password: string;
+}
+export interface IRegisterDTO {
+  name: string;
+
+  tagName: string;
+
+  phone: string;
+
+  email: string;
+
+  password: string;
+
+  repeatedPassword: string;
+}
+
 export interface IBase {
   id: number;
   createdAt: Date;

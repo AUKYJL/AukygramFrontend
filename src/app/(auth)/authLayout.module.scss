@@ -1,0 +1,35 @@
+.main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.rightSide {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100dvh;
+  padding: 10px;
+}
+
+.logo {
+}
+.middleBlock {
+  text-align: center;
+  min-width: 300px;
+}
+
+.title {
+  font-size: 45px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.desc {
+  font-size: 20px;
+  margin-bottom: 25px;
+}
+
+.bottomText {
+  a {
+    font-weight: 600;
+  }
+}
