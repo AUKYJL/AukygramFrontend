@@ -3,6 +3,7 @@ import React from "react";
 import { IoCheckmarkDoneSharp, IoCheckmarkSharp } from "react-icons/io5";
 
 import { IMessage } from "../../types/types";
+import { timeToHHMM } from "../../utils/utils";
 import { MessageSender } from "../messageSender/messageSender";
 
 import styles from "./message.module.scss";
@@ -18,11 +19,7 @@ export const Message: React.FC<Props> = ({
   message,
   showSender,
 }) => {
-  const timeToHHMM = (date: Date) => {
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    return `${hours}:${minutes}`;
-  };
+  //TODO:check zustand user state
   const isOwn = message.sendBy.id === 26;
   return (
     <div

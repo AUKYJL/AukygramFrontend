@@ -3,7 +3,7 @@
 import Link from "antd/es/typography/Link";
 import { usePathname } from "next/navigation";
 
-import { Logo } from "../components/logo/logo";
+import { Logo } from "../../components/logo/logo";
 
 import styles from "./authLayout.module.scss";
 

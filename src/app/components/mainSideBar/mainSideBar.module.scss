@@ -1,0 +1,38 @@
+.sideBar {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 15px;
+  background-color: #1b0036;
+  height: 100dvh;
+  width: 200px;
+}
+.logo {
+  margin-bottom: 40px;
+}
+.list {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.listItem {
+  font-size: 18px;
+  a {
+    color: #756187;
+    transition: all 0.3s ease 0s;
+  }
+  &._active {
+    a {
+      color: #fff;
+    }
+  }
+  @media (any-hover: hover) {
+    &:hover {
+      a {
+        color: #fff;
+      }
+    }
+  }
+}
+.userProfile {
+}
