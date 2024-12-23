@@ -40,6 +40,11 @@ export interface IMessage extends IBase {
   urlToFiles?: string[];
   urlToVideos?: string[];
 }
+export interface ISendMessage {
+  message: string;
+  chatId: number;
+  senderId: number;
+}
 export interface IChat extends IBase {
   tagName: string;
   name: string;

@@ -8,9 +8,8 @@ import { IMessage } from "./shared/types/types";
 import { Chat } from "./shared/ui/chat/chat";
 import { getSocket } from "./shared/ws/socket";
 
-const socket = getSocket();
-
 export default function Home() {
+  const socket = getSocket();
   const user1 = {
     id: 26,
     createdAt: new Date(),

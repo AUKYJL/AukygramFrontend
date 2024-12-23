@@ -1,0 +1,13 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: 100dvh;
+  overflow-y: auto;
+}
+.listItem {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  word-wrap: break-word;
+}

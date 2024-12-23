@@ -7,6 +7,7 @@ import { timeToHHMM } from "../../utils/utils";
 import { MessageSender } from "../messageSender/messageSender";
 
 import styles from "./message.module.scss";
+import { useUserStore } from "@/app/store/userStore";
 
 interface Props {
   className?: string;
@@ -19,8 +20,8 @@ export const Message: React.FC<Props> = ({
   message,
   showSender,
 }) => {
-  //TODO:check zustand user state
-  const isOwn = message.sendBy.id === 26;
+  const userStore = useUserStore();
+  const isOwn = message.sendBy.id === userStore.id;
   return (
     <div
       className={clsx(className, styles.messageWrapper, isOwn && styles.own)}

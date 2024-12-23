@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 
 import { QueryClientWrapper } from "./components/queryClientWrapper";
+import { UserInitializer } from "./components/userInitializer";
 import "./globals.css";
 
 const roboto = Roboto({
@@ -22,7 +23,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={roboto.className}>
-        <QueryClientWrapper>{children}</QueryClientWrapper>
+        <QueryClientWrapper>
+          <UserInitializer />
+          {children}
+        </QueryClientWrapper>
       </body>
     </html>
   );

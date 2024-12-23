@@ -58,9 +58,9 @@ export const ChatBlockList: React.FC<Props> = ({ className }) => {
 
   if (isLoading)
     return (
-      <div>
-        {Array.from({ length: 10 }).map((_, index) => (
-          <Skeleton.Button key={index} block />
+      <div className={style.skeletons}>
+        {Array.from({ length: 20 }).map((_, index) => (
+          <Skeleton.Button key={index} block size="large" />
         ))}
       </div>
     );

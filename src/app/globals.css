@@ -109,5 +109,5 @@ legend {
   display: block;
 }
 body {
-  overflow: hidden;
+  /* overflow: hidden; */
 }
