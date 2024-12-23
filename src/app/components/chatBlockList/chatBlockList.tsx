@@ -1,10 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQueries, useQuery } from "@tanstack/react-query";
 import { Skeleton } from "antd";
 import React, { useState } from "react";
 
 import { ChatBlock } from "../chatBlock/chatBlock";
 
 import style from "./chatBlockList.module.scss";
+import { chatService } from "@/app/services/chatService";
 import { userService } from "@/app/services/userService";
 import { IMessage } from "@/app/shared/types/types";
 
@@ -45,11 +46,20 @@ export const ChatBlockList: React.FC<Props> = ({ className }) => {
     queryFn: userService.getUserChats,
     select: (data) => data.data,
   });
+  const lastMessages = useQueries({
+    queries: chats
+      ? chats.map((chat) => ({
+          queryKey: [chat.id, "lastMessage"],
+          queryFn: () => chatService.getLastMessage(chat.id),
+          enabled: !!chats,
+        }))
+      : [],
+  });
 
   if (isLoading)
     return (
       <div>
-        {Array.from({ length: 5 }).map((_, index) => (
+        {Array.from({ length: 10 }).map((_, index) => (
           <Skeleton.Button key={index} block />
         ))}
       </div>
@@ -57,12 +67,16 @@ export const ChatBlockList: React.FC<Props> = ({ className }) => {
 
   return (
     <ul className={style.list}>
-      {chats ? (
-        chats.map((chat) => (
-          <li key={chat.id}>
-            <ChatBlock chat={chat} lastMessage={messages[0]} />
-          </li>
-        ))
+      {chats && lastMessages ? (
+        chats.map((chat, i) => {
+          const lastMessage = lastMessages[i]?.data?.data;
+
+          return (
+            <li key={chat.id}>
+              <ChatBlock chat={chat} lastMessage={lastMessage} />
+            </li>
+          );
+        })
       ) : (
         <div>no chats</div>
       )}

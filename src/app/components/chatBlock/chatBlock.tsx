@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React from "react";
 
 import styles from "./chatBlock.module.scss";
@@ -10,7 +10,7 @@ import { timeToHHMM } from "@/app/shared/utils/utils";
 interface Props {
   className?: string;
   chat: IChat;
-  lastMessage: IMessage;
+  lastMessage?: IMessage;
 }
 
 export const ChatBlock: React.FC<Props> = ({
@@ -19,9 +19,12 @@ export const ChatBlock: React.FC<Props> = ({
   lastMessage,
 }) => {
   const router = useRouter();
+  const { chatId } = useParams();
+  const current = (chatId ? +chatId : -1) === chat.id;
+
   return (
     <div
-      className={clsx(className, styles.block, styles.current)}
+      className={clsx(className, styles.block, current && styles.current)}
       onClick={() => {
         router.push(`/messages/${chat.id}`);
       }}
@@ -35,10 +38,14 @@ export const ChatBlock: React.FC<Props> = ({
       />
       <div className={styles.text}>
         <h6 className={styles.name}>{chat.name}</h6>
-        <p className={styles.message}>{lastMessage.text?.slice(0, 20)}...</p>
+        {lastMessage && (
+          <p className={styles.message}>{lastMessage.text?.slice(0, 20)}...</p>
+        )}
       </div>
       <div className={styles.info}>
-        <div className={styles.time}>{timeToHHMM(lastMessage.createdAt)}</div>
+        {lastMessage && (
+          <div className={styles.time}>{timeToHHMM(lastMessage.createdAt)}</div>
+        )}
         <div className={styles.icon}>
           <span className={styles.unreadCount}>100</span>
           {/* <IoCheckmarkDoneSharp size={15} /> */}

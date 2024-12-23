@@ -108,3 +108,6 @@ label {
 legend {
   display: block;
 }
+body {
+  overflow: hidden;
+}
