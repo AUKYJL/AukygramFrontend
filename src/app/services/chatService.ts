@@ -5,5 +5,8 @@ class ChatService {
   public getLastMessage(chatId: number) {
     return api.get<IMessage>(`chats/${chatId}/lastMessage`);
   }
+  public getMessages(chatId: number) {
+    return api.get<IMessage[]>(`chats/${chatId}/messages`);
+  }
 }
 export const chatService = new ChatService();

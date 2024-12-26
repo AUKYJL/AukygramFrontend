@@ -11,12 +11,14 @@ interface Props {
   className?: string;
   chat: IChat;
   lastMessage?: IMessage;
+  undreadCount: number;
 }
 
 export const ChatBlock: React.FC<Props> = ({
   className,
   chat,
   lastMessage,
+  undreadCount,
 }) => {
   const router = useRouter();
   const { chatId } = useParams();
@@ -47,7 +49,7 @@ export const ChatBlock: React.FC<Props> = ({
           <div className={styles.time}>{timeToHHMM(lastMessage.createdAt)}</div>
         )}
         <div className={styles.icon}>
-          <span className={styles.unreadCount}>100</span>
+          <span className={styles.unreadCount}>{undreadCount}</span>
           {/* <IoCheckmarkDoneSharp size={15} /> */}
 
           {/* <IoCheckmarkSharp size={15} /> */}

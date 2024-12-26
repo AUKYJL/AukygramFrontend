@@ -7,3 +7,8 @@ export enum LoginByOptions {
   EMAIL = "email",
   PHONE = "phone",
 }
+export enum EVENTS {
+  CONNECT = "connect",
+  MESSAGE = "message",
+  READ_MESSAGE = "read_message",
+}

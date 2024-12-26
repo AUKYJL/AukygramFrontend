@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React, { createRef, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 import styles from "./messagesList.module.scss";
 import { Message } from "@/app/shared/ui/message/message";
@@ -10,8 +10,8 @@ interface Props {
 }
 
 export const MessagesList: React.FC<Props> = ({ className }) => {
-  const { messages } = useActiveChatStore();
-  const messagesListRef = createRef<HTMLUListElement>();
+  const { messages, chatId } = useActiveChatStore();
+  const messagesListRef = useRef<HTMLUListElement>(null);
   useEffect(() => {
     if (messagesListRef.current) {
       messagesListRef.current?.scrollTo(
@@ -19,7 +19,7 @@ export const MessagesList: React.FC<Props> = ({ className }) => {
         messagesListRef.current.scrollHeight,
       );
     }
-  }, [messagesListRef]);
+  }, [messagesListRef, chatId]);
   return (
     <ul ref={messagesListRef} className={clsx(className, styles.list)}>
       {messages &&

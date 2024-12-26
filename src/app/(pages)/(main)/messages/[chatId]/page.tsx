@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
 import { useEffect } from "react";
 
 import style from "./messagesChatId.module.scss";
-import api from "@/app/shared/api/axiosInstance";
+import { chatService } from "@/app/services/chatService";
 import { Chat } from "@/app/shared/ui/chat/chat";
 import { useActiveChatStore } from "@/app/store/activeChatStore";
 
@@ -16,15 +16,15 @@ export const MessageChatIdPage = () => {
 
   const { data, isLoading, isSuccess } = useQuery({
     queryKey: ["messages", chatId],
-    queryFn: () => api.get(`chats/${chatId}/messages`),
+    queryFn: () => chatService.getMessages(+chatId!),
     enabled: !!chatId,
     select: (data) => data.data,
   });
   useEffect(() => {
     activeChatStore.setChatId(+chatId!);
-    activeChatStore.setMessages(data);
+    activeChatStore.setMessages(data!);
   }, [isSuccess]);
-  if (isLoading)
+  if (!isSuccess)
     return (
       <div className={style.spinner}>
         <Spin size="large"></Spin>
