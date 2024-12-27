@@ -28,7 +28,7 @@ export const MessageInput: React.FC<Props> = ({ className, sendMessage }) => {
         chatId: activeChatStore.chatId,
         senderId: +JSON.parse(localStorage.getItem(USER) || "{}").id,
       });
-      setMessage(""); // Очистить поле после отправки
+      setMessage("");
     }
   };
 

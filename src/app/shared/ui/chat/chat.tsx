@@ -35,8 +35,16 @@ export const Chat: React.FC<Props> = ({ className }) => {
   const sendMessage = (message: ISendMessage) => {
     socket.emit("message", message);
   };
-  const handleMessage = (message: IMessage) => {
-    activeChatStore.addMessage(message);
+  const handleMessage = ({
+    message,
+    chatId,
+  }: {
+    message: IMessage;
+    chatId: number;
+  }) => {
+    if (chatId === activeChatStore.chatId) {
+      activeChatStore.addMessage(message);
+    }
   };
   const handleReadMessage = (message: IMessage) => {
     console.log("readed ", message);
