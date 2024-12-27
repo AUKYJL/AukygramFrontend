@@ -14,14 +14,15 @@ export const MessagesList: React.FC<Props> = ({ className }) => {
   const messagesListRef = useRef<HTMLUListElement>(null);
   useEffect(() => {
     if (messagesListRef.current) {
-      messagesListRef.current?.scrollTo(
-        0,
-        messagesListRef.current.scrollHeight,
-      );
+      messagesListRef.current.scrollTo(0, messagesListRef.current.scrollHeight);
     }
   }, [messagesListRef, chatId]);
   return (
-    <ul ref={messagesListRef} className={clsx(className, styles.list)}>
+    <ul
+      key={chatId}
+      ref={messagesListRef}
+      className={clsx(className, styles.list)}
+    >
       {messages &&
         messages.map((message, index) => (
           <li className={styles.listItem} key={message.id}>
