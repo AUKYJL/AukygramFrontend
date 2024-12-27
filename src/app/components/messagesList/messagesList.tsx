@@ -13,10 +13,10 @@ export const MessagesList: React.FC<Props> = ({ className }) => {
   const { messages, chatId } = useActiveChatStore();
   const messagesListRef = useRef<HTMLUListElement>(null);
   useEffect(() => {
-    if (messagesListRef.current) {
+    if (messages && messagesListRef.current) {
       messagesListRef.current.scrollTo(0, messagesListRef.current.scrollHeight);
     }
-  }, [messagesListRef, chatId]);
+  }, [messagesListRef, chatId, messages]);
   return (
     <ul
       key={chatId}
