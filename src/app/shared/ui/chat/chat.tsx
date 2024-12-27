@@ -42,19 +42,16 @@ export const Chat: React.FC<Props> = ({ className }) => {
     console.log("readed ", message);
     activeChatStore.readMessage(message);
   };
-
+  const handleConnect = () => console.log("connected");
   useEffect(() => {
-    console.log(lastReadMessageId);
-    //TODO:вынести выше тк энивей 1 раз только коннектится к сокету и тут нелогично держать
-    socket.on(EVENTS.CONNECT, () => {
-      console.log("connected");
-    });
-
+    socket.on(EVENTS.CONNECT, handleConnect);
     socket.on(EVENTS.MESSAGE, handleMessage);
     socket.on(EVENTS.READ_MESSAGE, handleReadMessage);
 
     return () => {
+      socket.off(EVENTS.CONNECT, handleConnect);
       socket.off(EVENTS.MESSAGE, handleMessage);
+      socket.off(EVENTS.READ_MESSAGE, handleReadMessage);
     };
   }, []);
 

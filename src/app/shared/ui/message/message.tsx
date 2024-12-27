@@ -10,7 +10,6 @@ import { getSocket } from "../../ws/socket";
 import { MessageSender } from "../messageSender/messageSender";
 
 import styles from "./message.module.scss";
-import { chatUserService } from "@/app/services/chatUserService";
 import { useActiveChatStore } from "@/app/store/activeChatStore";
 import { useUserStore } from "@/app/store/userStore";
 
@@ -34,6 +33,7 @@ export const Message: React.FC<Props> = ({
     rootMargin: "0px",
     threshold: 0,
   });
+  // const { setLastReadedId } = useSetLastReadedMessageId();
   const markAsReadInChat = async (chatId: number) => {
     if (chatId !== activeChatStore.chatId) return;
     const readedMessage: IReadMessage = {
@@ -46,12 +46,8 @@ export const Message: React.FC<Props> = ({
       message.id > activeChatStore.lastReadedMessageIdInChat &&
       message.sendBy.id !== userStore.id
     ) {
-      await chatUserService.setLastReadedMessageId({
-        chatId: activeChatStore.chatId,
-        userId: userStore.id!,
-        messageId: message.id,
-      });
-      activeChatStore.setLastReadedMessageIdInChat(message.id);
+      activeChatStore.debounceLastReadedMessageId(message.id, userStore.id!);
+      // setLastReadedId(message.id);
     }
   };
   useEffect(() => {
@@ -61,11 +57,7 @@ export const Message: React.FC<Props> = ({
       message.sendBy.id !== userStore.id &&
       intersection?.isIntersecting
     ) {
-      timer = setTimeout(
-        () => markAsReadInChat(activeChatStore.chatId),
-
-        2000,
-      );
+      timer = setTimeout(() => markAsReadInChat(activeChatStore.chatId), 1000);
     }
     return () => {
       clearTimeout(timer);

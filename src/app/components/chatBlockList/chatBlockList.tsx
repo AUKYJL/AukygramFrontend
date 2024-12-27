@@ -1,6 +1,6 @@
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { Skeleton } from "antd";
-import React, { useEffect } from "react";
+import React from "react";
 
 import { ChatBlock } from "../chatBlock/chatBlock";
 
@@ -30,9 +30,7 @@ export const ChatBlockList: React.FC<Props> = ({ className }) => {
         }))
       : [],
   });
-  useEffect(() => {
-    console.log(chatInfo?.unreadCount[0]);
-  }, [lastMessages]);
+
   if (isLoading)
     return (
       <div className={style.skeletons}>
