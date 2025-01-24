@@ -21,6 +21,7 @@ export const ChatBlockList: React.FC<Props> = ({ className }) => {
     queryFn: userService.getUserChats,
     select: (data) => data.data,
   });
+
   const lastMessages = useQueries({
     queries: chatInfo?.chats
       ? chatInfo.chats.map((chat) => ({

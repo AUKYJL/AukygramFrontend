@@ -33,7 +33,8 @@ export const Message: React.FC<Props> = ({
     rootMargin: "0px",
     threshold: 0,
   });
-  // const { setLastReadedId } = useSetLastReadedMessageId();
+  let timer: NodeJS.Timeout;
+
   const markAsReadInChat = async (chatId: number) => {
     if (chatId !== activeChatStore.chatId) return;
     const readedMessage: IReadMessage = {
@@ -41,17 +42,21 @@ export const Message: React.FC<Props> = ({
       messageId: message.id,
       readerId: userStore.id!,
     };
+    //TODO: норм ли на каждый мессадж слать сокет
+    //TODO: первйы таймаут в юзэффекте 1сек и в дебаунсе 300мс, потенциально если успеться
+    //  релоаднуть страницу в 1000-1300мс то невозможно будет правильно получить анридкаунт
+    // (пока не появятся новые сообщения которые отработают правильно)
     socket.emit(EVENTS.READ_MESSAGE, readedMessage);
     if (
       message.id > activeChatStore.lastReadedMessageIdInChat &&
       message.sendBy.id !== userStore.id
     ) {
+      activeChatStore.setLastReadedMessageIdInChat(message.id);
       activeChatStore.debounceLastReadedMessageId(message.id, userStore.id!);
-      // setLastReadedId(message.id);
     }
   };
   useEffect(() => {
-    let timer: NodeJS.Timeout;
+    if (timer) clearTimeout(timer);
     if (
       message.readedBy.every((user) => user.id !== userStore.id) &&
       message.sendBy.id !== userStore.id &&

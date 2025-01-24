@@ -24,7 +24,7 @@ export const MessageChatIdPage = () => {
     activeChatStore.setChatId(+chatId!);
     activeChatStore.setMessages(data!);
   }, [isSuccess]);
-  if (!isSuccess)
+  if (!data)
     return (
       <div className={style.spinner}>
         <Spin size="large"></Spin>

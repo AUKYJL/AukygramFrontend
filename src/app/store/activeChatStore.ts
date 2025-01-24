@@ -44,14 +44,12 @@ export const useActiveChatStore = create<State>()((set, get) => {
 
       debounceTimer = setTimeout(() => {
         const { chatId } = get();
-
-        set({ lastReadedMessageIdInChat: messageId });
         chatUserService.setLastReadedMessageId({
           chatId,
           messageId,
           userId,
         });
-      }, 1000);
+      }, 100);
     },
   };
 });

@@ -47,7 +47,6 @@ export const Chat: React.FC<Props> = ({ className }) => {
     }
   };
   const handleReadMessage = (message: IMessage) => {
-    console.log("readed ", message);
     activeChatStore.readMessage(message);
   };
   const handleConnect = () => console.log("connected");

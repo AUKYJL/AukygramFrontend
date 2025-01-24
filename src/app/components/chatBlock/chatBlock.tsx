@@ -2,10 +2,12 @@ import clsx from "clsx";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import React from "react";
+import { IoCheckmarkDoneSharp, IoCheckmarkSharp } from "react-icons/io5";
 
 import styles from "./chatBlock.module.scss";
 import { IChat, IMessage } from "@/app/shared/types/types";
 import { timeToHHMM } from "@/app/shared/utils/utils";
+import { useUserStore } from "@/app/store/userStore";
 
 interface Props {
   className?: string;
@@ -22,6 +24,7 @@ export const ChatBlock: React.FC<Props> = ({
 }) => {
   const router = useRouter();
   const { chatId } = useParams();
+  const userStore = useUserStore();
   const current = (chatId ? +chatId : -1) === chat.id;
 
   return (
@@ -49,10 +52,19 @@ export const ChatBlock: React.FC<Props> = ({
           <div className={styles.time}>{timeToHHMM(lastMessage.createdAt)}</div>
         )}
         <div className={styles.icon}>
-          <span className={styles.unreadCount}>{undreadCount}</span>
-          {/* <IoCheckmarkDoneSharp size={15} /> */}
-
-          {/* <IoCheckmarkSharp size={15} /> */}
+          {undreadCount > 0 && (
+            <span className={styles.unreadCount}>{undreadCount}</span>
+          )}
+          {lastMessage && (
+            <>
+              {lastMessage?.sendBy.id === userStore.id &&
+              lastMessage.readedBy.length > 0 ? (
+                <IoCheckmarkDoneSharp size={15} />
+              ) : (
+                <IoCheckmarkSharp size={15} />
+              )}
+            </>
+          )}
         </div>
       </div>
     </div>
