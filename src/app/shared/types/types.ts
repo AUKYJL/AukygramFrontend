@@ -55,15 +55,34 @@ export interface IReadMessage {
   messageId: number;
   readerId: number;
 }
-export interface IChatInfo {
+export interface IOwnChat {
   chats: IChat[];
   unreadCount: number[];
+}
+export interface ILastMessagesInChat {
+  chatId: number;
+  message: IMessage;
+}
+export interface IUnreadCount {
+  chatId: number;
+  count: number;
+}
+
+export interface IChatInfo extends IBase {
+  links: string[];
+  messages: IMessage[];
+  urlToFiles: string[];
+  urlToPhotos: string[];
+  urlToVideos: string[];
+  urlToVoiceMessages: string[];
 }
 export interface IChat extends IBase {
   tagName: string;
   name: string;
   membersId: number[];
   adminsId: number[];
+  chatInfo: IChatInfo;
+  chatUsers: IChatUser[];
 }
 export interface IChatUser extends IBase {
   lastReadedMessageId: number;

@@ -11,7 +11,7 @@ export const useSetLastReadedMessageId = () => {
   const [, cancelDebounce] = useDebounce(
     async () => {
       const lastId = activeChatStore.lastReadedMessageIdInChat;
-      console.log("debounce ", lastId);
+
       if (lastId > activeChatStore.lastReadedMessageIdInChat) {
         await chatUserService.setLastReadedMessageId({
           chatId: activeChatStore.chatId,

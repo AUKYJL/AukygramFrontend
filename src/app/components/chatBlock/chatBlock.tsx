@@ -44,7 +44,8 @@ export const ChatBlock: React.FC<Props> = ({
       <div className={styles.text}>
         <h6 className={styles.name}>{chat.name}</h6>
         {lastMessage && (
-          <p className={styles.message}>{lastMessage.text?.slice(0, 20)}...</p>
+          // <p className={styles.message}>{lastMessage.text?.slice(0, 20)}...</p>
+          <p className={styles.message}>{lastMessage.text}</p>
         )}
       </div>
       <div className={styles.info}>
@@ -57,12 +58,13 @@ export const ChatBlock: React.FC<Props> = ({
           )}
           {lastMessage && (
             <>
-              {lastMessage?.sendBy.id === userStore.id &&
-              lastMessage.readedBy.length > 0 ? (
-                <IoCheckmarkDoneSharp size={15} />
-              ) : (
-                <IoCheckmarkSharp size={15} />
-              )}
+              {lastMessage?.sendBy.id === userStore.id ? (
+                lastMessage.readedBy.length > 0 ? (
+                  <IoCheckmarkDoneSharp size={15} />
+                ) : (
+                  <IoCheckmarkSharp size={15} />
+                )
+              ) : null}
             </>
           )}
         </div>

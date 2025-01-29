@@ -11,6 +11,7 @@ import { MessageSender } from "../messageSender/messageSender";
 
 import styles from "./message.module.scss";
 import { useActiveChatStore } from "@/app/store/activeChatStore";
+import { useOwnChatsStore } from "@/app/store/ownChatsStore";
 import { useUserStore } from "@/app/store/userStore";
 
 interface Props {
@@ -26,6 +27,7 @@ export const Message: React.FC<Props> = ({
 }) => {
   const socket = getSocket();
   const userStore = useUserStore();
+  const ownChatStore = useOwnChatsStore();
   const activeChatStore = useActiveChatStore();
   const intersectionRef = useRef(null);
   const intersection = useIntersection(intersectionRef, {
@@ -34,6 +36,16 @@ export const Message: React.FC<Props> = ({
     threshold: 0,
   });
   let timer: NodeJS.Timeout;
+
+  const decreaseUnreadCount = () => {
+    const currentCount = ownChatStore.unreadCount.find(
+      (count) => count.chatId === activeChatStore.chatId,
+    )?.count;
+    ownChatStore.changeUnreadCount({
+      chatId: activeChatStore.chatId,
+      count: currentCount ? currentCount - 1 : 0,
+    });
+  };
 
   const markAsReadInChat = async (chatId: number) => {
     if (chatId !== activeChatStore.chatId) return;
@@ -47,6 +59,7 @@ export const Message: React.FC<Props> = ({
     //  релоаднуть страницу в 1000-1300мс то невозможно будет правильно получить анридкаунт
     // (пока не появятся новые сообщения которые отработают правильно)
     socket.emit(EVENTS.READ_MESSAGE, readedMessage);
+    decreaseUnreadCount();
     if (
       message.id > activeChatStore.lastReadedMessageIdInChat &&
       message.sendBy.id !== userStore.id

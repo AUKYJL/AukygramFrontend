@@ -31,13 +31,16 @@
 }
 .message {
   font-size: 12px;
+  overflow: hidden; /* Обрезает содержимое, выходящее за границы */
+  text-overflow: ellipsis; /* Добавляет троеточие в конце строки */
+  white-space: nowrap; /* Запрещает перенос текста на новую строку */
 }
 .text {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   flex: 1;
+  min-width: 0;
 }
 .info {
   display: flex;
