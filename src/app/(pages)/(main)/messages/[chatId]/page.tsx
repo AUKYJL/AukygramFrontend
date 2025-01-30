@@ -6,15 +6,15 @@ import { useParams } from "next/navigation";
 import { useEffect } from "react";
 
 import style from "./messagesChatId.module.scss";
+import { Chat } from "@/app/components/chat";
 import { chatService } from "@/app/services/chatService";
-import { Chat } from "@/app/shared/ui/chat/chat";
 import { useActiveChatStore } from "@/app/store/activeChatStore";
 
 export const MessageChatIdPage = () => {
   const activeChatStore = useActiveChatStore();
   const { chatId } = useParams();
 
-  const { data, isLoading, isSuccess } = useQuery({
+  const { data, isSuccess } = useQuery({
     queryKey: ["messages", chatId],
     queryFn: () => chatService.getMessages(+chatId!),
     enabled: !!chatId,

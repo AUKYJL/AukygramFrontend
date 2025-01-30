@@ -8,7 +8,7 @@ import styles from "./loginPage.module.scss";
 import { authService } from "@/app/services/authService";
 import { LoginByOptions } from "@/app/shared/consts/consts";
 import { useAuth } from "@/app/shared/hooks/useAuth";
-import { FormInput } from "@/app/shared/ui/formInput/formInput";
+import { FormInput } from "@/app/shared/ui/formInput";
 
 type formInputs = {
   tagName?: string;

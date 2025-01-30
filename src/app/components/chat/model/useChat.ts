@@ -1,26 +1,15 @@
-"use client";
-
 import { useQuery } from "@tanstack/react-query";
-import clsx from "clsx";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
-import { EVENTS } from "../../consts/consts";
-import { IMessage, ISendMessage } from "../../types/types";
-import { getSocket } from "../../ws/socket";
-
-import styles from "./chat.module.scss";
-import { MessageInput } from "@/app/components/messageInput/messageInput";
-import { MessagesList } from "@/app/components/messagesList/messagesList";
 import { chatUserService } from "@/app/services/chatUserService";
+import { EVENTS } from "@/app/shared/consts/consts";
+import { IMessage, ISendMessage } from "@/app/shared/types/types";
+import { getSocket } from "@/app/shared/ws/socket";
 import { useActiveChatStore } from "@/app/store/activeChatStore";
 import { useOwnChatsStore } from "@/app/store/ownChatsStore";
 import { useUserStore } from "@/app/store/userStore";
 
-interface Props {
-  className?: string;
-}
-
-export const Chat: React.FC<Props> = ({ className }) => {
+export const useChat = () => {
   const socket = getSocket();
   const activeChatStore = useActiveChatStore();
   const userStore = useUserStore();
@@ -83,13 +72,5 @@ export const Chat: React.FC<Props> = ({ className }) => {
       socket.off(EVENTS.READ_MESSAGE, handleReadMessage);
     };
   }, []);
-
-  return (
-    <div className={clsx(className, styles.chat)}>
-      <MessagesList className={styles.messagesList} />
-      <div className={styles.messageInput}>
-        <MessageInput sendMessage={sendMessage} />
-      </div>
-    </div>
-  );
+  return { sendMessage };
 };

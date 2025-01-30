@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import React from "react";
 
-import { ChatBlockList } from "../chatBlockList/chatBlockList";
+import { ChatBlockList } from "../../chatBlockList";
 
 import styles from "./messagesSideBar.module.scss";
 

@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 
 import { USER } from "./shared/consts/consts";
 import { IMessage } from "./shared/types/types";
-import { Chat } from "./shared/ui/chat/chat";
 import { getSocket } from "./shared/ws/socket";
 
 export default function Home() {
@@ -90,7 +89,7 @@ export default function Home() {
   const [value, setValue] = useState("");
   return (
     <>
-      <Chat messages={messages} />
+      {/* <Chat messages={messages} /> */}
       <Input
         placeholder="Type message..."
         onChange={(e) => setValue(e.target.value)}

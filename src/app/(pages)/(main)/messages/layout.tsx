@@ -1,5 +1,5 @@
 import styles from "./messagesLayout.module.scss";
-import { MessagesSideBar } from "@/app/components/messagesSideBar/messagesSideBar";
+import { MessagesSideBar } from "@/app/components/messagesSideBar";
 
 export const MessagesLayout = ({
   children,

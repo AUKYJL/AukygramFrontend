@@ -2,7 +2,7 @@ import clsx from "clsx";
 import React, { useEffect, useRef } from "react";
 
 import styles from "./messagesList.module.scss";
-import { Message } from "@/app/shared/ui/message/message";
+import { Message } from "@/app/shared/ui/message";
 import { useActiveChatStore } from "@/app/store/activeChatStore";
 
 interface Props {

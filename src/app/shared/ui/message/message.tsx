@@ -7,7 +7,7 @@ import { EVENTS } from "../../consts/consts";
 import { IMessage, IReadMessage } from "../../types/types";
 import { timeToHHMM } from "../../utils/utils";
 import { getSocket } from "../../ws/socket";
-import { MessageSender } from "../messageSender/messageSender";
+import { MessageSender } from "../messageSender";
 
 import styles from "./message.module.scss";
 import { useActiveChatStore } from "@/app/store/activeChatStore";

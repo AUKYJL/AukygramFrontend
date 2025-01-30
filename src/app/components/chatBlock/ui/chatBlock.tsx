@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
-import React from "react";
+import { FC } from "react";
 import { IoCheckmarkDoneSharp, IoCheckmarkSharp } from "react-icons/io5";
 
 import styles from "./chatBlock.module.scss";
@@ -16,7 +16,7 @@ interface Props {
   undreadCount: number;
 }
 
-export const ChatBlock: React.FC<Props> = ({
+export const ChatBlock: FC<Props> = ({
   className,
   chat,
   lastMessage,
@@ -27,12 +27,14 @@ export const ChatBlock: React.FC<Props> = ({
   const userStore = useUserStore();
   const current = (chatId ? +chatId : -1) === chat.id;
 
+  const handleClick = () => {
+    router.push(`/chats/${chat.id}`);
+  };
+
   return (
     <div
       className={clsx(className, styles.block, current && styles.current)}
-      onClick={() => {
-        router.push(`/messages/${chat.id}`);
-      }}
+      onClick={handleClick}
     >
       <Image
         src={"https://cdn-icons-png.flaticon.com/512/6858/6858504.png"}
@@ -43,10 +45,7 @@ export const ChatBlock: React.FC<Props> = ({
       />
       <div className={styles.text}>
         <h6 className={styles.name}>{chat.name}</h6>
-        {lastMessage && (
-          // <p className={styles.message}>{lastMessage.text?.slice(0, 20)}...</p>
-          <p className={styles.message}>{lastMessage.text}</p>
-        )}
+        {lastMessage && <p className={styles.message}>{lastMessage.text}</p>}
       </div>
       <div className={styles.info}>
         {lastMessage && (

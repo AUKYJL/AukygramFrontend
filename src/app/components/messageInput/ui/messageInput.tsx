@@ -2,7 +2,7 @@
 
 import Input from "antd/es/input/Input";
 import clsx from "clsx";
-import React, { useState } from "react";
+import { FC, useState } from "react";
 import { FaMicrophone } from "react-icons/fa";
 import { IoSend } from "react-icons/io5";
 import { MdOutlineAttachFile } from "react-icons/md";
@@ -17,7 +17,7 @@ interface Props {
   sendMessage: (message: ISendMessage) => void;
 }
 
-export const MessageInput: React.FC<Props> = ({ className, sendMessage }) => {
+export const MessageInput: FC<Props> = ({ className, sendMessage }) => {
   const [message, setMessage] = useState("");
   const activeChatStore = useActiveChatStore();
 

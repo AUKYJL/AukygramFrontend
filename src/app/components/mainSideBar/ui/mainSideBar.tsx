@@ -3,10 +3,10 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import { FC } from "react";
 
-import { Logo } from "../logo/logo";
-import { UserProfile } from "../userProfile/userProfile";
+import { Logo } from "../../logo";
+import { UserProfile } from "../../userProfile";
 
 import style from "./mainSideBar.module.scss";
 
@@ -17,7 +17,7 @@ interface Link {
   title: string;
   href: string;
 }
-export const MainSideBar: React.FC<Props> = ({ className }) => {
+export const MainSideBar: FC<Props> = ({ className }) => {
   const router = usePathname();
   const links: Link[] = [
     { title: "Dashboard", href: "/dashboard" },

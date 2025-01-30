@@ -1,5 +1,5 @@
 import style from "./mainLayout.module.scss";
-import { MainSideBar } from "@/app/components/mainSideBar/mainSideBar";
+import { MainSideBar } from "@/app/components/mainSideBar";
 
 export const MainLayout = ({
   children,
