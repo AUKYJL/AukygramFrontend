@@ -1,30 +1,14 @@
-import clsx from "clsx";
-import React, { useEffect, useRef } from "react";
-import { IoCheckmarkDoneSharp, IoCheckmarkSharp } from "react-icons/io5";
+import { useEffect, useRef } from "react";
 import { useIntersection } from "react-use";
 
-import { EVENTS } from "../../consts/consts";
-import { IMessage, IReadMessage } from "../../types/types";
-import { timeToHHMM } from "../../utils/utils";
-import { getSocket } from "../../ws/socket";
-import { MessageSender } from "../messageSender";
-
-import styles from "./message.module.scss";
+import { EVENTS } from "@/app/shared/consts/consts";
+import { IMessage, IReadMessage } from "@/app/shared/types/types";
+import { getSocket } from "@/app/shared/ws/socket";
 import { useActiveChatStore } from "@/app/store/activeChatStore";
 import { useOwnChatsStore } from "@/app/store/ownChatsStore";
 import { useUserStore } from "@/app/store/userStore";
 
-interface Props {
-  className?: string;
-  showSender: boolean;
-  message: IMessage;
-}
-
-export const Message: React.FC<Props> = ({
-  className,
-  message,
-  showSender,
-}) => {
+export const useMessage = (message: IMessage) => {
   const socket = getSocket();
   const userStore = useUserStore();
   const ownChatStore = useOwnChatsStore();
@@ -83,27 +67,5 @@ export const Message: React.FC<Props> = ({
   }, [intersection]);
 
   const isOwn = message.sendBy.id === userStore.id;
-  return (
-    <div
-      ref={intersectionRef}
-      className={clsx(className, styles.messageWrapper, isOwn && styles.own)}
-    >
-      {showSender && <MessageSender sender={message.sendBy} isOwn={isOwn} />}
-      <div className={clsx(styles.message)}>
-        <p>{message.text}</p>
-        <div className={styles.bottom}>
-          <span className={styles.time}>{timeToHHMM(message.createdAt)}</span>
-          {isOwn && (
-            <>
-              {message.readedBy.length > 0 ? (
-                <IoCheckmarkDoneSharp size={15} />
-              ) : (
-                <IoCheckmarkSharp size={15} />
-              )}
-            </>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+  return { isOwn, intersectionRef };
 };

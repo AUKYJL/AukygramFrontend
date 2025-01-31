@@ -7,6 +7,7 @@ import { IoCheckmarkDoneSharp, IoCheckmarkSharp } from "react-icons/io5";
 import styles from "./chatBlock.module.scss";
 import { IChat, IMessage } from "@/app/shared/types/types";
 import { timeToHHMM } from "@/app/shared/utils/utils";
+import { useActiveChatStore } from "@/app/store/activeChatStore";
 import { useUserStore } from "@/app/store/userStore";
 
 interface Props {
@@ -26,9 +27,12 @@ export const ChatBlock: FC<Props> = ({
   const { chatId } = useParams();
   const userStore = useUserStore();
   const current = (chatId ? +chatId : -1) === chat.id;
+  const activeChatStore = useActiveChatStore();
 
   const handleClick = () => {
-    router.push(`/chats/${chat.id}`);
+    activeChatStore.setChatId(chat.id);
+    activeChatStore.setChatName(chat.name);
+    router.push(`/messages/${chat.id}`);
   };
 
   return (
@@ -44,7 +48,11 @@ export const ChatBlock: FC<Props> = ({
         className={styles.img}
       />
       <div className={styles.text}>
-        <h6 className={styles.name}>{chat.name}</h6>
+        <h6 className={styles.name}>
+          {chat.name}
+          {chat.name}
+        </h6>
+        {/* <h6 className={styles.name}>chat</h6> */}
         {lastMessage && <p className={styles.message}>{lastMessage.text}</p>}
       </div>
       <div className={styles.info}>

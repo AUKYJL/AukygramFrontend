@@ -1,4 +1,4 @@
-import style from "./mainLayout.module.scss";
+import styles from "./mainLayout.module.scss";
 import { MainSideBar } from "@/app/components/mainSideBar";
 
 export const MainLayout = ({
@@ -7,7 +7,7 @@ export const MainLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <main className={style.main}>
+    <main className={styles.main}>
       <MainSideBar />
       {children}
     </main>

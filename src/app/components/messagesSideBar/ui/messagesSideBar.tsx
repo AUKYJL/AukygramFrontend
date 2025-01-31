@@ -14,7 +14,7 @@ interface Props {
 export const MessagesSideBar: React.FC<Props> = ({ className }) => {
   return (
     <div className={clsx(className, styles.sideBar)}>
-      <h2>Messages</h2>
+      <h2 className={styles.title}>Messages</h2>
       <ChatBlockList />
     </div>
   );

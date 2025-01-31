@@ -2,10 +2,10 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { Spin } from "antd";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-import style from "./messagesChatId.module.scss";
+import styles from "./messagesChatId.module.scss";
 import { Chat } from "@/app/components/chat";
 import { chatService } from "@/app/services/chatService";
 import { useActiveChatStore } from "@/app/store/activeChatStore";
@@ -13,24 +13,30 @@ import { useActiveChatStore } from "@/app/store/activeChatStore";
 export const MessageChatIdPage = () => {
   const activeChatStore = useActiveChatStore();
   const { chatId } = useParams();
-
-  const { data, isSuccess } = useQuery({
+  const router = useRouter();
+  const { data: chat, isSuccess } = useQuery({
     queryKey: ["messages", chatId],
-    queryFn: () => chatService.getMessages(+chatId!),
+    queryFn: () => chatService.getChat(+chatId!),
     enabled: !!chatId,
     select: (data) => data.data,
   });
   useEffect(() => {
-    activeChatStore.setChatId(+chatId!);
-    activeChatStore.setMessages(data!);
+    if (isSuccess) {
+      if (!chat) router.push("/messages");
+      else {
+        activeChatStore.setChatId(chat.id);
+        activeChatStore.setChatName(chat.name);
+        activeChatStore.setMessages(chat.chatInfo.messages);
+      }
+    }
   }, [isSuccess]);
-  if (!data)
+  if (!chat)
     return (
-      <div className={style.spinner}>
+      <div className={styles.spinner}>
         <Spin size="large"></Spin>
       </div>
     );
-  return <div className={style.page}>{data && <Chat />}</div>;
+  return <div className={styles.page}>{chat && <Chat />}</div>;
 };
 
 export default MessageChatIdPage;

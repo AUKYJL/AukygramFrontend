@@ -1,14 +1,19 @@
 "use client";
 
+import { Tooltip } from "antd";
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FC } from "react";
+import { FC, useState } from "react";
+import { IoChatbubblesOutline } from "react-icons/io5";
+import { MdDashboard, MdGroups } from "react-icons/md";
 
 import { Logo } from "../../logo";
 import { UserProfile } from "../../userProfile";
+import { IMainSideBarLink } from "../model/link.interface";
 
-import style from "./mainSideBar.module.scss";
+import styles from "./mainSideBar.module.scss";
+import { Menu } from "./menu/menu";
 
 interface Props {
   className?: string;
@@ -19,28 +24,51 @@ interface Link {
 }
 export const MainSideBar: FC<Props> = ({ className }) => {
   const router = usePathname();
-  const links: Link[] = [
-    { title: "Dashboard", href: "/dashboard" },
-    { title: "Messages", href: "/messages" },
-    { title: "Groups", href: "/groups" },
+  const links: IMainSideBarLink[] = [
+    {
+      title: "Dashboard",
+      href: "/dashboard",
+      icon: <MdDashboard />,
+    },
+    { title: "Messages", href: "/messages", icon: <IoChatbubblesOutline /> },
+    { title: "Groups", href: "/groups", icon: <MdGroups /> },
   ];
+  const [active, setActive] = useState(false);
   return (
-    <aside className={clsx(className, style.sideBar)}>
-      <Logo className={style.logo} />
-      <ul className={style.list}>
+    <aside
+      className={clsx(className, styles.sideBar, active && styles._active)}
+    >
+      <Logo className={styles.logo} />
+
+      <ul className={styles.list}>
+        <Menu
+          className={styles.menu}
+          onClick={() => {
+            setActive(!active);
+          }}
+        />
         {links.map((link) => (
-          <li
-            key={link.href}
-            className={clsx(
-              style.listItem,
-              router.startsWith(link.href) && style._active,
-            )}
-          >
-            <Link href={link.href}>{link.title}</Link>
+          <li key={link.href}>
+            <Tooltip
+              className={clsx(
+                styles.listItem,
+                router.startsWith(link.href) && styles._active,
+              )}
+              mouseEnterDelay={0.7}
+              arrow={false}
+              placement="top"
+              title={link.title}
+            >
+              <div className={styles.left}>
+                {link.icon}
+                <Link href={link.href}>{link.title}</Link>
+              </div>
+              <div className={styles.notification}>999+</div>
+            </Tooltip>
           </li>
         ))}
       </ul>
-      <UserProfile className={style.userProfile} />
+      <UserProfile className={styles.userProfile} />
     </aside>
   );
 };

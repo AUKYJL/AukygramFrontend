@@ -13,4 +13,8 @@
   &.own {
     order: 2;
   }
+  @media (max-width: 700px) {
+    width: 40px;
+    height: 40px;
+  }
 }

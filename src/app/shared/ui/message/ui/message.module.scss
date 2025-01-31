@@ -4,6 +4,9 @@
   gap: 5px;
   align-self: flex-start;
   max-width: 90%;
+  @media (max-width: 700px) {
+    grid-template-columns: 40px 1fr;
+  }
 }
 
 .message {
@@ -16,11 +19,14 @@
   order: 3;
   grid-column: 2;
   word-break: break-all;
+  @media (max-width: 700px) {
+    padding: 7px;
+  }
 }
 
 .bottom {
   margin-top: 3px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 3px;
   justify-content: flex-end;

@@ -1,7 +1,14 @@
 .sideBar {
   background-color: #fff;
   height: 100dvh;
-  width: 100%;
+  position: relative;
   padding: 10px 15px;
-  overflow: hidden;
+
+  @media (max-width: 700px) {
+    padding: 10px 5px;
+  }
+}
+.title {
+  font-size: 18px;
+  font-weight: 500;
 }

@@ -1,0 +1,17 @@
+.logo {
+  display: flex;
+  align-items: center;
+  height: 15px;
+  & .default {
+    display: block;
+    @media (max-width: 1024px) {
+      display: none;
+    }
+  }
+  & .mini {
+    display: none;
+    @media (max-width: 1024px) {
+      display: block;
+    }
+  }
+}

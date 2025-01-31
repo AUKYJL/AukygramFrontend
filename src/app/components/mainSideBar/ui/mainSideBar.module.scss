@@ -5,9 +5,39 @@
   background-color: #1b0036;
   height: 100dvh;
   width: 200px;
+  transition: width 0.3s ease 0s;
+  @media (max-width: 1024px) {
+    width: 50px;
+    &._active {
+      width: 200px;
+      & .listItem a {
+        width: auto;
+        opacity: 1;
+        margin-right: auto;
+      }
+    }
+  }
+  @media (max-width: 700px) {
+    &._active {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 2;
+    }
+  }
+}
+.menu {
+  display: none;
+  @media (max-width: 1024px) {
+    display: block;
+  }
 }
 .logo {
   margin-bottom: 40px;
+  @media (max-width: 1024px) {
+    margin-bottom: 20px;
+  }
 }
 .list {
   flex: auto;
@@ -17,22 +47,60 @@
 }
 .listItem {
   font-size: 18px;
-  a {
-    color: #756187;
-    transition: all 0.3s ease 0s;
-  }
+  color: #756187;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: color 0.3s ease 0s;
   &._active {
-    a {
-      color: #fff;
+    color: #fff;
+    > .notification {
+      opacity: 1;
     }
   }
   @media (any-hover: hover) {
     &:hover {
-      a {
-        color: #fff;
+      color: #fff;
+      > .notification {
+        opacity: 1;
       }
     }
   }
+  > .left {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    @media (max-width: 1024px) {
+      font-size: 20px;
+    }
+    a {
+      color: inherit;
+      width: auto;
+      opacity: 1;
+      display: block;
+      margin-right: auto;
+      @media (max-width: 1024px) {
+        width: 0;
+        opacity: 0;
+        margin-right: 0;
+      }
+    }
+  }
+}
+.notification {
+  opacity: 0.6;
+  transition: opacity 0.3s ease 0s;
+  border-radius: 50%;
+  background-color: #fff;
+  color: #1b0036;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+  padding: 2px;
+  font-weight: 900;
 }
 .userProfile {
 }

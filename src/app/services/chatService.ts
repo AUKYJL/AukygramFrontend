@@ -1,7 +1,10 @@
 import api from "../shared/api/axiosInstance";
-import { IMessage } from "../shared/types/types";
+import { IChat, IMessage } from "../shared/types/types";
 
 class ChatService {
+  public getChat(chatId: number) {
+    return api.get<IChat>(`chats/${chatId}`);
+  }
   public getLastMessage(chatId: number) {
     return api.get<IMessage>(`chats/${chatId}/lastMessage`);
   }

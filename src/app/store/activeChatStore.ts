@@ -6,8 +6,10 @@ import { IMessage } from "../shared/types/types";
 interface State {
   messages: IMessage[];
   chatId: number;
+  chatName: string;
   lastReadedMessageIdInChat: number;
   setChatId: (chatId: number) => void;
+  setChatName: (chatName: string) => void;
   setMessages: (messages: IMessage[]) => void;
   addMessage: (message: IMessage) => void;
   readMessage: (message: IMessage) => void;
@@ -23,6 +25,7 @@ export const useActiveChatStore = create<State>()((set, get) => {
     chatId: 0,
     lastReadedMessageIdInChat: 0,
     setChatId: (chatId) => set({ chatId }),
+    setChatName: (chatName) => set({ chatName }),
     setMessages: (messages) => set({ messages }),
     addMessage: (message) =>
       set((state) => ({

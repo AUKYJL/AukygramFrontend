@@ -4,9 +4,9 @@
   cursor: pointer;
   padding: 15px;
   border-radius: 20px;
-  margin: 0px -10px;
   transition: background-color 0.3s ease 0s;
   background-color: transparent;
+
   &.current {
     background-color: #fcf3ff;
     @media (any-hover: hover) {
@@ -28,12 +28,17 @@
 .name {
   font-weight: 500;
   font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
 }
 .message {
   font-size: 12px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  max-width: 100%;
 }
 .text {
   display: flex;
